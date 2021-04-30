@@ -1,25 +1,26 @@
-VENDOR_DIR = vendor
+VENDORDIR = vendor
 
 GO ?= go
 GOLANGCI_LINT ?= golangci-lint
 
-.PHONY: $(VENDOR_DIR) lint test test-unit
+.PHONY: $(VENDORDIR) lint test test-unit
 
-$(VENDOR_DIR):
-	@mkdir -p $(VENDOR_DIR)
+$(VENDORDIR):
+	@mkdir -p $(VENDORDIR)
 	@$(GO) mod vendor
 	@$(GO) mod tidy
 
 lint:
 	@$(GOLANGCI_LINT) run
 
-test: test-unit
+test: test-unit test-integration
 
 ## Run unit tests
 test-unit:
 	@echo ">> unit test"
 	@$(GO) test -gcflags=-l -coverprofile=unit.coverprofile -covermode=atomic -race ./...
 
-#test-integration:
-#	@echo ">> integration test"
-#	@$(GO) test ./features/... -gcflags=-l -coverprofile=features.coverprofile -coverpkg ./... -godog -race
+## Run integration tests
+test-integration:
+	@echo ">> integration test"
+	@$(GO) test -gcflags=-l -coverprofile=integration.coverprofile -covermode=atomic -race ./... --tags integration
