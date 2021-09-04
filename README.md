@@ -13,7 +13,7 @@ persisting/getting credentials and token. It supports OS X, Linux
 
 ## Prerequisites
 
-- `Go >= 1.15`
+- `Go >= 1.16`
 
 ## Install
 
