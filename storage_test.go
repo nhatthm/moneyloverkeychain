@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	keyring "github.com/zalando/go-keyring"
+	"github.com/zalando/go-keyring"
 
 	"github.com/nhatthm/moneyloverkeychain"
 	"github.com/nhatthm/moneyloverkeychain/test"
@@ -17,7 +17,7 @@ func TestStorage(t *testing.T) {
 
 	s := moneyloverkeychain.NewStorage(service)
 
-	test.Run(t, service, key, nil, func(t *testing.T) { // nolint: thelper
+	test.Run(t, service, key, nil, func(t *testing.T) { //nolint: thelper
 		// Get not found.
 		data, err := s.Get(key)
 

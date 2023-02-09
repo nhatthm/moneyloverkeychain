@@ -162,7 +162,7 @@ func TestCredentials_LoadOnce(t *testing.T) {
 func TestCredentials_LoadKeyring(t *testing.T) {
 	deviceID := uuid.New()
 
-	expect := func(t *testing.T, s moneyloverkeychain.Storage) { // nolint: thelper
+	expect := func(t *testing.T, s moneyloverkeychain.Storage) { //nolint: thelper
 		err := s.Set(deviceID.String(), `{"username":"user@example.org","password":"123456"}`)
 		require.NoError(t, err)
 	}
@@ -170,7 +170,7 @@ func TestCredentials_LoadKeyring(t *testing.T) {
 	expectedUsername := "user@example.org"
 	expectedPassword := "123456"
 
-	test.Run(t, credentialsService, deviceID.String(), expect, func(t *testing.T) { // nolint: thelper
+	test.Run(t, credentialsService, deviceID.String(), expect, func(t *testing.T) { //nolint: thelper
 		c := New(deviceID)
 
 		assert.Equal(t, expectedUsername, c.Username())
@@ -272,7 +272,7 @@ func TestCredentials_UpdateKeyring(t *testing.T) {
 	expectedUsername := "user@example.org"
 	expectedPassword := "123456"
 
-	test.Run(t, credentialsService, deviceID.String(), nil, func(t *testing.T) { // nolint: thelper
+	test.Run(t, credentialsService, deviceID.String(), nil, func(t *testing.T) { //nolint: thelper
 		c := New(deviceID)
 
 		_, err := keyring.Get(credentialsService, deviceID.String())
@@ -379,7 +379,7 @@ func TestCredentials_DeleteOnce(t *testing.T) {
 func TestCredentials_DeleteKeyring(t *testing.T) {
 	deviceID := uuid.New()
 
-	expect := func(t *testing.T, s moneyloverkeychain.Storage) { // nolint: thelper
+	expect := func(t *testing.T, s moneyloverkeychain.Storage) { //nolint: thelper
 		err := s.Set(deviceID.String(), `{"username":"user@example.org","password":"123456"}`)
 		require.NoError(t, err)
 	}
@@ -387,7 +387,7 @@ func TestCredentials_DeleteKeyring(t *testing.T) {
 	expectedUsername := "user@example.org"
 	expectedPassword := "123456"
 
-	test.Run(t, credentialsService, deviceID.String(), expect, func(t *testing.T) { // nolint: thelper
+	test.Run(t, credentialsService, deviceID.String(), expect, func(t *testing.T) { //nolint: thelper
 		c := New(deviceID)
 
 		assert.Equal(t, expectedUsername, c.Username())

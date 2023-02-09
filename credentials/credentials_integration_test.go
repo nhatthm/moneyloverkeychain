@@ -1,3 +1,4 @@
+//go:build integration
 // +build integration
 
 package credentials
@@ -8,7 +9,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	keyring "github.com/zalando/go-keyring"
+	"github.com/zalando/go-keyring"
 
 	"github.com/nhatthm/moneyloverkeychain"
 	"github.com/nhatthm/moneyloverkeychain/test"
@@ -17,7 +18,7 @@ import (
 func TestIntegrationCredentials_LoadKeyringNotFound(t *testing.T) {
 	deviceID := uuid.New()
 
-	test.Run(t, credentialsService, deviceID.String(), nil, func(t *testing.T) { // nolint: thelper
+	test.Run(t, credentialsService, deviceID.String(), nil, func(t *testing.T) { //nolint: thelper
 		c := New(deviceID)
 
 		assert.Empty(t, c.Username())
@@ -28,7 +29,7 @@ func TestIntegrationCredentials_LoadKeyringNotFound(t *testing.T) {
 func TestIntegrationCredentials_LoadKeyring(t *testing.T) {
 	deviceID := uuid.New()
 
-	expect := func(t *testing.T, s moneyloverkeychain.Storage) { // nolint: thelper
+	expect := func(t *testing.T, s moneyloverkeychain.Storage) { //nolint: thelper
 		err := s.Set(deviceID.String(), `{"username":"user@example.org","password":"123456"}`)
 		require.NoError(t, err)
 	}
@@ -36,7 +37,7 @@ func TestIntegrationCredentials_LoadKeyring(t *testing.T) {
 	expectedUsername := "user@example.org"
 	expectedPassword := "123456"
 
-	test.Run(t, credentialsService, deviceID.String(), expect, func(t *testing.T) { // nolint: thelper
+	test.Run(t, credentialsService, deviceID.String(), expect, func(t *testing.T) { //nolint: thelper
 		c := New(deviceID)
 
 		assert.Equal(t, expectedUsername, c.Username())
@@ -50,7 +51,7 @@ func TestIntegrationCredentials_UpdateKeyring(t *testing.T) {
 	expectedUsername := "user@example.org"
 	expectedPassword := "123456"
 
-	test.Run(t, credentialsService, deviceID.String(), nil, func(t *testing.T) { // nolint: thelper
+	test.Run(t, credentialsService, deviceID.String(), nil, func(t *testing.T) { //nolint: thelper
 		c := New(deviceID)
 
 		_, err := keyring.Get(credentialsService, deviceID.String())
@@ -74,7 +75,7 @@ func TestIntegrationCredentials_UpdateKeyring(t *testing.T) {
 func TestIntegrationCredentials_DeleteKeyring(t *testing.T) {
 	deviceID := uuid.New()
 
-	expect := func(t *testing.T, s moneyloverkeychain.Storage) { // nolint: thelper
+	expect := func(t *testing.T, s moneyloverkeychain.Storage) { //nolint: thelper
 		err := s.Set(deviceID.String(), `{"username":"user@example.org","password":"123456"}`)
 		require.NoError(t, err)
 	}
@@ -82,7 +83,7 @@ func TestIntegrationCredentials_DeleteKeyring(t *testing.T) {
 	expectedUsername := "user@example.org"
 	expectedPassword := "123456"
 
-	test.Run(t, credentialsService, deviceID.String(), expect, func(t *testing.T) { // nolint: thelper
+	test.Run(t, credentialsService, deviceID.String(), expect, func(t *testing.T) { //nolint: thelper
 		c := New(deviceID)
 
 		_, err := keyring.Get(credentialsService, deviceID.String())
@@ -104,7 +105,7 @@ func TestIntegrationCredentials_DeleteKeyring(t *testing.T) {
 func TestIntegrationCredentials_DeleteKeyringNotFound(t *testing.T) {
 	deviceID := uuid.New()
 
-	test.Run(t, credentialsService, deviceID.String(), nil, func(t *testing.T) { // nolint: thelper
+	test.Run(t, credentialsService, deviceID.String(), nil, func(t *testing.T) { //nolint: thelper
 		c := New(deviceID)
 
 		_, err := keyring.Get(credentialsService, deviceID.String())
