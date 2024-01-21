@@ -73,9 +73,9 @@ func TestTokenStorage_Get(t *testing.T) {
 			assert.Equal(t, tc.expectedToken, token)
 
 			if tc.expectedError == "" {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 			} else {
-				assert.EqualError(t, err, tc.expectedError)
+				require.EqualError(t, err, tc.expectedError)
 			}
 		})
 	}
@@ -98,7 +98,7 @@ func TestTokenStorage_GetKeyring(t *testing.T) {
 		token, err := p.Get(context.Background(), tokenStorageKey)
 
 		assert.Equal(t, expectedToken, token)
-		assert.NoError(t, err)
+		require.NoError(t, err)
 	})
 }
 
@@ -112,14 +112,14 @@ func TestTokenStorage_SetAndDeleteKeyring(t *testing.T) {
 		p := NewStorage()
 
 		err := p.Set(context.Background(), tokenStorageKey, expectedToken)
-		assert.NoError(t, err)
+		require.NoError(t, err)
 
 		// Get from keychain.
 		data, err := keyring.Get(tokenStorageService, tokenStorageKey)
 		expectedData := `{"access_token":"access","expires_at":"2020-01-02T03:04:05Z"}`
 
 		assert.Equal(t, expectedData, data)
-		assert.NoError(t, err)
+		require.NoError(t, err)
 	})
 }
 
@@ -160,9 +160,9 @@ func TestTokenStorage_Delete(t *testing.T) {
 			err := p.Delete(context.Background(), tokenStorageKey)
 
 			if tc.expectedError == "" {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 			} else {
-				assert.EqualError(t, err, tc.expectedError)
+				require.EqualError(t, err, tc.expectedError)
 			}
 		})
 	}
@@ -179,15 +179,15 @@ func TestTokenStorage_DeleteKeyring(t *testing.T) {
 
 		// Prepare data.
 		err := p.Set(context.Background(), tokenStorageKey, token)
-		assert.NoError(t, err)
+		require.NoError(t, err)
 
 		// Verify data.
 		_, err = keyring.Get(tokenStorageService, tokenStorageKey)
-		assert.NoError(t, err)
+		require.NoError(t, err)
 
 		// Test.
 		err = p.Delete(context.Background(), tokenStorageKey)
-		assert.NoError(t, err)
+		require.NoError(t, err)
 
 		// Verify.
 		_, err = keyring.Get(tokenStorageService, tokenStorageKey)
