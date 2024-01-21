@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"github.com/nhatthm/moneyloverkeychain/credentials/mock"
 )
@@ -58,9 +59,9 @@ func TestKeychainCredentials_Update(t *testing.T) {
 			err := p.Update("username", "password")
 
 			if tc.expectedError == "" {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 			} else {
-				assert.EqualError(t, err, tc.expectedError)
+				require.EqualError(t, err, tc.expectedError)
 			}
 		})
 	}
@@ -100,9 +101,9 @@ func TestKeychainCredentials_Delete(t *testing.T) {
 			err := p.Delete()
 
 			if tc.expectedError == "" {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 			} else {
-				assert.EqualError(t, err, tc.expectedError)
+				require.EqualError(t, err, tc.expectedError)
 			}
 		})
 	}

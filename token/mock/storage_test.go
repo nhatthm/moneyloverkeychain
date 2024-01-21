@@ -8,6 +8,7 @@ import (
 
 	"github.com/nhatthm/moneyloverapi/pkg/auth"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"github.com/nhatthm/moneyloverkeychain/token/mock"
 )
@@ -55,9 +56,9 @@ func TestStorage_Get(t *testing.T) {
 			assert.Equal(t, tc.expectedResult, result)
 
 			if tc.expectedError == "" {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 			} else {
-				assert.EqualError(t, err, tc.expectedError)
+				require.EqualError(t, err, tc.expectedError)
 			}
 		})
 	}
@@ -102,9 +103,9 @@ func TestStorage_Set(t *testing.T) {
 			err := s.Set(context.Background(), "key", token)
 
 			if tc.expectedError == "" {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 			} else {
-				assert.EqualError(t, err, tc.expectedError)
+				require.EqualError(t, err, tc.expectedError)
 			}
 		})
 	}
@@ -144,9 +145,9 @@ func TestStorage_Delete(t *testing.T) {
 			err := s.Delete(context.Background(), "key")
 
 			if tc.expectedError == "" {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 			} else {
-				assert.EqualError(t, err, tc.expectedError)
+				require.EqualError(t, err, tc.expectedError)
 			}
 		})
 	}

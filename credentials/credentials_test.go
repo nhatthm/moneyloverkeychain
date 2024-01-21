@@ -223,11 +223,11 @@ func TestCredentials_Update(t *testing.T) {
 			err := c.Update(username, password)
 
 			if tc.expectedError == "" {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 				assert.Equal(t, tc.expectedUsername, c.Username())
 				assert.Equal(t, tc.expectedPassword, c.Password())
 			} else {
-				assert.EqualError(t, err, tc.expectedError)
+				require.EqualError(t, err, tc.expectedError)
 			}
 		})
 	}
@@ -279,7 +279,7 @@ func TestCredentials_UpdateKeyring(t *testing.T) {
 		require.Equal(t, keyring.ErrNotFound, err)
 
 		err = c.Update("user@example.org", "123456")
-		assert.NoError(t, err)
+		require.NoError(t, err)
 
 		assert.Equal(t, expectedUsername, c.Username())
 		assert.Equal(t, expectedPassword, c.Password())
@@ -289,7 +289,7 @@ func TestCredentials_UpdateKeyring(t *testing.T) {
 		expectedData := `{"username":"user@example.org","password":"123456"}`
 
 		assert.Equal(t, expectedData, data)
-		assert.NoError(t, err)
+		require.NoError(t, err)
 	})
 }
 
@@ -335,9 +335,9 @@ func TestCredentials_Delete(t *testing.T) {
 			err := c.Delete()
 
 			if tc.expectedError == "" {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 			} else {
-				assert.EqualError(t, err, tc.expectedError)
+				require.EqualError(t, err, tc.expectedError)
 			}
 		})
 	}

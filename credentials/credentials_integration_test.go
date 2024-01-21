@@ -58,7 +58,7 @@ func TestIntegrationCredentials_UpdateKeyring(t *testing.T) {
 		require.Equal(t, keyring.ErrNotFound, err)
 
 		err = c.Update("user@example.org", "123456")
-		assert.NoError(t, err)
+		require.NoError(t, err)
 
 		assert.Equal(t, expectedUsername, c.Username())
 		assert.Equal(t, expectedPassword, c.Password())
@@ -68,7 +68,7 @@ func TestIntegrationCredentials_UpdateKeyring(t *testing.T) {
 		expectedData := `{"username":"user@example.org","password":"123456"}`
 
 		assert.Equal(t, expectedData, data)
-		assert.NoError(t, err)
+		require.NoError(t, err)
 	})
 }
 

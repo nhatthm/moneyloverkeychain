@@ -31,7 +31,7 @@ func TestStorage(t *testing.T) {
 		data, err = s.Get(key)
 
 		assert.Equal(t, "foobar", data)
-		assert.NoError(t, err)
+		require.NoError(t, err)
 
 		// Delete.
 		err = s.Delete(key)
